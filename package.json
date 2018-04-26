@@ -1,0 +1,44 @@
+{
+  "name": "administration",
+  "version": "0.0.1",
+  "description": "Administration page for FIRST team 5877",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "webpack -d --watch",
+    "build": "webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FRC-5877/administration.git"
+  },
+  "author": "Douglas DeVicariis",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/FRC-5877/administration/issues"
+  },
+  "homepage": "https://github.com/FRC-5877/administration#readme",
+  "dependencies": {
+    "@material/button": "^0.35.0",
+    "@material/layout-grid": "^0.34.0",
+    "@material/ripple": "^0.35.0",
+    "@material/theme": "^0.35.0",
+    "@material/top-app-bar": "^0.35.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.7.0",
+    "extract-loader": "^2.0.1",
+    "file-loader": "^1.1.11",
+    "node-sass": "^4.8.3",
+    "sass-loader": "^7.0.1"
+  }
+}
