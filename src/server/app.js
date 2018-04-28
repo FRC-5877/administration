@@ -1,18 +1,27 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var publicFolder = path.join(__dirname, '../client/public');
-var settings = require(path.join(__dirname, '../../settings.js'));
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const publicFolder = path.join(__dirname, '../client/public');
+const settings = require(path.join(__dirname, '../../settings.js'));
 const passport = require('passport');
+const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api')
+const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
+const session = require('express-session');
+const socketsio = require('socket.io');
 
-var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/api')
-var usersRouter = require('./routes/users');
-var authRouter = require('./routes/auth');
-var session = require('express-session');
+const app = express();
+const sockets = socketsio();
+app.io = sockets;
 
-var app = express();
+const Users = require('./modules/Users');
+const users = new Users();
+app.users = users;
+
+const io = require('./modules/io')(app);
+const http = require('http').Server(app);
 
 
 app.use(logger('dev'));
@@ -34,5 +43,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
+
 
 module.exports = app;

@@ -1,18 +1,19 @@
 import React from 'react';
 
-class MenuComponent extends React.Component {
+class DashboardComponent extends React.Component {
 
   constructor(props) {
     super(props);
-  }
-
+  } 
+  
   render() {
     return (
       <main>
+        Dashboard
       </main>
     );
   }
 
 }
 
-export default MenuComponent;
+export default DashboardComponent;

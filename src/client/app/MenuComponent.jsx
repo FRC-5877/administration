@@ -2,8 +2,14 @@ import React from 'react';
 
 class MenuComponent extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor(...props) {
+    super(...props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(itemName) {
+    this.props.onPageChange(itemName);
   }
 
   render() {
@@ -18,12 +24,11 @@ class MenuComponent extends React.Component {
         </div>
         <div className="mdc-list-group">
           <nav className="mdc-list">
-            <a className="mdc-list-item demo-drawer-list-item mdc-list-item--selected" href="#">
-              <i className="material-icons mdc-list-item__graphic" aria-hidden="true">dashboard</i>Dashboard
-            </a>
-            <a className="mdc-list-item demo-drawer-list-item" href="#">
-              <i className="material-icons mdc-list-item__graphic" aria-hidden="true">mail</i>Email System
-            </a>
+            {this.props.menuItems.map((menuItem, index) => 
+              <a key={index} onClick={() => this.handleClick(menuItem.name)} className={this.props.page === menuItem.name ? 'mdc-list-item mdc-list-item--selected' : 'mdc-list-item'} href="#" >
+                <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{menuItem.icon}</i>{menuItem.name}
+              </a>
+            )}
           </nav>
           
           {/* <hr className="mdc-list-divider" />

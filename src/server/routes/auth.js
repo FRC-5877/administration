@@ -34,7 +34,7 @@ passport.deserializeUser((id, done) => {
 router.get('/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login','https://www.googleapis.com/auth/userinfo.email'] }));
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res, next) => {
-  res.cookie('user', req.user._id, {maxAge: 1*60*60*1000}).redirect('/');
+  res.cookie('user', req.user._id.toString(), {maxAge: 1*60*60*1000}).redirect('/');
 });
 
 module.exports = router;
