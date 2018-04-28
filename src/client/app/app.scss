@@ -1,4 +1,6 @@
+@import "@material/theme/mdc-theme";
 @import "@material/typography/mdc-typography";
+@import "@material/elevation/mdc-elevation";
 @import "@material/icon-toggle/mdc-icon-toggle";
 @import "@material/layout-grid/mdc-layout-grid";
 @import "@material/ripple/mdc-ripple";
@@ -9,6 +11,40 @@
 @import "@material/button/mdc-button";
 
 body {
+  display: flex;
   padding: 0;
   margin: 0;
+  min-height: 100vh;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+h3 {
+  @include mdc-typography(headline3);
+}
+
+.content {
+  display: flex;
+  flex: 1 1 auto;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.mdc-grid-remove-gutter-margin {
+  --mdc-layout-grid-gutter-desktop: 0px;
+  --mdc-layout-grid-margin-desktop: 0px;
+}
+
+.full-height {
+  min-height: 100vh;
+}
+
+.center-text {
+  text-align: center;
+}
+
+@for $i from 1 through 100 {
+  .height-#{i} {
+    height: #{i}rem;
+  }
 }
