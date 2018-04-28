@@ -43,6 +43,10 @@ h3 {
   text-align: center;
 }
 
+.caps {
+  text-transform: capitalize!important;
+}
+
 @for $i from 1 through 100 {
   .height-#{i} {
     height: #{i}rem;

@@ -2405,6 +2405,9 @@ h3 {
 .center-text {
   text-align: center; }
 
+.caps {
+  text-transform: capitalize !important; }
+
 .height-i {
   height: irem; }
 

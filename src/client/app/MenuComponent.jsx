@@ -25,7 +25,7 @@ class MenuComponent extends React.Component {
         <div className="mdc-list-group">
           <nav className="mdc-list">
             {this.props.menuItems.map((menuItem, index) => 
-              <a key={index} onClick={() => this.handleClick(menuItem.name)} className={this.props.page === menuItem.name ? 'mdc-list-item mdc-list-item--selected' : 'mdc-list-item'} href="#" >
+              <a key={index} onClick={() => this.handleClick(menuItem.name)} className={this.props.page === menuItem.name ? 'mdc-list-item caps mdc-list-item--selected' : 'mdc-list-item caps'} href="#" >
                 <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{menuItem.icon}</i>{menuItem.name}
               </a>
             )}
