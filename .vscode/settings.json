@@ -1,6 +1,0 @@
-{
-  "eslint.enable": true,
-  "jshint.exclude": {
-    "*.jsx": true
-  }
-}
