@@ -7,5 +7,14 @@ var publicVeiws = path.join(__dirname, '../../client/public/views');
 router.get('/', function(req, res, next) {
   res.sendFile(path.join(publicVeiws, 'index.html'));
 });
+router.get('/dashboard', function(req, res, next) {
+  res.redirect('/');
+});
+router.get('/mail', function(req, res, next) {
+  res.redirect('/');
+});
+router.get('/logout', function(req, res, next) {
+  res.redirect('/');
+});
 
 module.exports = router;

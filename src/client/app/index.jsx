@@ -9,57 +9,78 @@ import {menu} from './js/menu.js';
 import {animation} from '@material/animation';
 import $ from 'jquery';
 import {getUserInfo} from '../api';
+import Cookies from 'universal-cookie';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+const cookies = new Cookies();
 
 const menuItems = [
-  {
+  [{
+    type: 'page',
     name: 'dashboard',
-    icon: 'dashboard'
+    icon: 'dashboard',
+    url: '/dashboard'
   },
   {
+    type: 'page',
     name: 'mail system',
-    icon: 'mail'
-  }
-]
+    icon: 'mail',
+    url: '/mail'
+  }],
+  [{
+    type: 'action',
+    name: 'logout',
+    icon: 'power_settings_new'
+  }]
+];
 
 class App extends React.Component {
+
   constructor(props) {
     super(props);
-    var id = document.cookie.split("=")[1];
-
+    
     this.state = {
       active: "dashboard",
-      userInfo: {date: "", email: "", name: {familyName: "", givenName: ""}, role: 1, _id: 0}
+      // userInfo: {date: "", email: "", name: {familyName: "", givenName: ""}, role: 9, _id: 0}
     }
 
-    getUserInfo(id, (err, userInfo) => this.setState({
-      userInfo
-    }));
+    // getUserInfo(cookies.get('user'), (err, userInfo) => this.setState({
+    //   userInfo
+    // }));
 
     this.onPageChange = this.onPageChange.bind(this);
+    this.onAction = this.onAction.bind(this);
   }
 
-  onPageChange(button) {
+  onPageChange(page) {
     this.setState({
-      active: button
+      active: page
     });
   }
 
+  onAction(action) {
+    switch (action) {
+      case 'logout':
+        cookies.remove('user');
+        this.setState({loggedIn: false, userInfo: {}});
+        break;
+    
+      default:
+        break;
+    }
+  }
+
   render () {
-    var id = document.cookie.split("=")[1];
-    if(id)
-      return (
-        <div className="content">
-          <MenuComponent menuItems={menuItems} page={this.state.active} onPageChange={this.onPageChange}/>
-          {this.state.active === "dashboard" ? <DashboardComponent /> : null}
-          {this.state.active === "mail system" ? <MailComponent /> : null}
-        </div>
-      );
-    else
-      return (
-        <LoginComponent />
-      );
+    return (
+      <div className="content">
+        <MenuComponent menuItems={menuItems} page={this.state.active} onPageChange={this.onPageChange} onAction={this.onAction}/>
+        <Route exact path="/" component={DashboardComponent} />
+        <Route path="/dashboard" component={DashboardComponent} />
+        <Route path="/mail" component={MailComponent} />
+      </div>
+    );
   }
 
 }
 
-render(<App/>, document.getElementById('app'));
+render(<BrowserRouter><App/></BrowserRouter>, document.getElementById('app'));

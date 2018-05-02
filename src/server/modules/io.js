@@ -15,7 +15,7 @@ module.exports = function(app) {
       app.users.findByID(userId).then((user, err) => {
         if(err)
           console.log(err);
-
+        
         client.emit(user._id, user);
       });
     });
