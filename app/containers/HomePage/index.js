@@ -7,11 +7,13 @@ import { Redirect } from 'react-router-dom';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectUser, makeSelectLoading, makeSelectIsAuthenticated, makeSelectLocation } from 'containers/App/selectors';
+import { makeSelectUser, makeSelectLoading, makeSelectIsAuthenticated } from 'containers/App/selectors';
 
 import { Menu } from 'containers/Menu';
+import { MailPage } from 'containers/MailPage';
 import saga from './saga';
 import reducer from './reducer';
+import { changeLocation } from '../App/actions';
 
 const menuItems = [
   {
@@ -38,6 +40,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   componentDidMount() {
     console.info('HomePage Did Mount');
+    console.log(this.props);
   }
 
   componentDidUpdate() {
@@ -49,23 +52,39 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       isAuthenticated,
       loading,
       user,
-      location,
       } = this.props;
+
     const userProps = {
       isAuthenticated,
       loading,
       user,
-      location,
     };
+
     if (!userProps.isAuthenticated) {
       return <Redirect to="/login" />;
     }
+
+    if (this.props.location.pathname === '/') {
+      return (
+        <div className="content">
+          <Menu menuItems={menuItems} location={location} />
+        </div>
+      );
+    }
+
+    if (this.props.location.pathname === '/mail') {
+      return (
+        <div className="content">
+          <Menu menuItems={menuItems} location={location} />
+          <MailPage />
+        </div>
+      );
+    }
+
     return (
       <div className="content">
         <Menu menuItems={menuItems} location={location} />
-        <h1>
-          Welcome {userProps.user.name}
-        </h1>
+        That page does not exist
       </div>
     );
   }
@@ -76,20 +95,20 @@ HomePage.propTypes = {
   loading: PropTypes.bool,
   user: PropTypes.object,
   location: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   isAuthenticated: makeSelectIsAuthenticated(),
   loading: makeSelectLoading(),
   user: makeSelectUser(),
-  location: makeSelectLocation(),
 });
 
-// function mapDispatchToProps(dispatch) {
-//   return dispatch;
-// }
+function mapDispatchToProps(dispatch) {
+  return { dispatch };
+}
 
-const withConnect = connect(mapStateToProps);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withReducer = injectReducer({ key: 'homePage', reducer });
 const withSaga = injectSaga({ key: 'homePage', saga });
 

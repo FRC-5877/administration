@@ -16,17 +16,26 @@ import Logo from 'images/logo/shark-240.png';
 import makeSelectMenu from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { makeSelectLocation } from '../App/selectors';
+import { changeLocation } from '../App/actions';
 
 
 export class Menu extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
-    console.info('Menu Did Mount');
+    console.log('Menu Did Mount');
     console.log(this.props);
   }
 
   render() {
+    const {
+      menuItems,
+      location,
+      } = this.props;
+
+    const userProps = {
+      menuItems,
+      location,
+    };
     return (
       <nav className="mdc-drawer mdc-drawer--permanent">
         <div className="mdc-layout-grid">
@@ -40,7 +49,7 @@ export class Menu extends React.PureComponent { // eslint-disable-line react/pre
           <nav className="mdc-list">
             {
               this.props.menuItems.map((menuItem) => (
-                <a key={menuItem.id} to={menuItem.link} className={this.props.location.pathname === menuItem.link ? 'mdc-list-item caps mdc-list-item--selected' : 'mdc-list-item caps'} href={menuItem.link ? menuItem.link : ''} >
+                <a key={menuItem.id} push to={menuItem.link} className={this.props.location.pathname === menuItem.link ? 'mdc-list-item caps mdc-list-item--selected' : 'mdc-list-item caps'} href={menuItem.link ? menuItem.link : ''} >
                   <i className="material-icons mdc-list-item__graphic" aria-hidden="true">{menuItem.icon}</i>{menuItem.name}
                 </a>
               ))
@@ -58,17 +67,13 @@ Menu.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  menu: makeSelectMenu(),
 });
 
 function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
+  return { dispatch };
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
 const withReducer = injectReducer({ key: 'menu', reducer });
 const withSaga = injectSaga({ key: 'menu', saga });
 

@@ -3,6 +3,7 @@
  * App actions
  *
  */
+import { LOCATION_CHANGE } from 'react-router-redux';
 import { LOGIN_SUCCESS, LOGIN_REQUEST, LOGOUT } from './constants';
 
 /**
@@ -28,5 +29,12 @@ export function loginRequest() {
 export function logout() {
   return {
     type: LOGOUT,
+  };
+}
+
+export function changeLocation(location) {
+  return {
+    type: LOCATION_CHANGE,
+    payload: location,
   };
 }

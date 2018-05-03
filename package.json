@@ -304,6 +304,7 @@
     "plop": "1.8.0",
     "pre-commit": "1.2.2",
     "react-test-renderer": "15.6.1",
+    "redux-persist": "^5.9.1",
     "rimraf": "2.6.1",
     "sass-loader": "^7.0.1",
     "shelljs": "^0.7.7",
