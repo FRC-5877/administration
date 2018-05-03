@@ -13,6 +13,8 @@ import { Redirect } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { GoogleLogin } from 'react-google-login';
+import $ from 'jquery';
+import { MDCLinearProgress } from '@material/linear-progress';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { loginRequest, loginSuccess } from '../App/actions';
@@ -21,18 +23,24 @@ import reducer from './reducer';
 import saga from './saga';
 import { makeSelectIsAuthenticated, makeSelectLoading } from '../App/selectors';
 import LoadingIndicator from '../../components/LoadingIndicator';
+import './Login.scss';
 // import { makeSelectLoading } from '../App/selectors';
 // import messages from './messages';
 
 export class LoginPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
-    console.info('Login Did Mount');
-    console.info(`Login Props: ${JSON.stringify(this.props)}`);
   }
 
   componentDidUpdate() {
-    console.info('Login Did Update');
+    $(document).ready(() => {
+      const determinate = $('.mdc-linear-progress');
+      MDCLinearProgress.determinate = determinate;
+      MDCLinearProgress.progress = 0.5;
+      if (determinate.data('buffer')) {
+        MDCLinearProgress.buffer = 0.75;
+      }
+    });
   }
 
   render() {
@@ -44,7 +52,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
       loading,
       isAuthenticated,
     };
-    console.log(`LoginPage: userProps: ${JSON.stringify(userProps)}`);
+
     if (userProps.isAuthenticated) {
       return (
         <Redirect to="/" />
@@ -61,8 +69,23 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
           <title>Login</title>
           <meta name="description" content="Login for Administration" />
         </Helmet>
-        <GoogleLogin clientId={'836592318780-ds8foim0jqo71iippfi4ir44lc61bpb3.apps.googleusercontent.com'} onRequest={this.props.onLoginRequest} onSuccess={this.props.onLoginSuccess} />
-        {/* <FormattedMessage {...messages.header} /> */}
+        <div className={'mdc-layout-grid mdc-grid-remove-gutter-margin full-height center-text'}>
+          <div className={'mdc-layout-grid__inner full-height'}>
+            <div className={'mdc-layout-grid__cell mdc-layout-grid__cell--span-5'} />
+            <div className={'mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--align-middle mdc-elevation--z1'}>
+              <div className={'mdc-layout-grid'}>
+                <div className={'mdc-layout-grid__inner'}>
+                  <div className={'mdc-layout-grid__cell mdc-layout-grid__cell--span-12'}>
+                    <h4 className={'mdc-typography--headline4'}>Mechalodons Administration</h4>
+                  </div>
+                  <div className={'mdc-layout-grid__cell mdc-layout-grid__cell--span-12'}>
+                    <GoogleLogin clientId={'836592318780-ds8foim0jqo71iippfi4ir44lc61bpb3.apps.googleusercontent.com'} onRequest={this.props.onLoginRequest} onSuccess={this.props.onLoginSuccess} className={'mdc-button mdc-button--raised google-button'} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
