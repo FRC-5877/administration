@@ -7,10 +7,32 @@ import { Redirect } from 'react-router-dom';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectUser, makeSelectLoading, makeSelectIsAuthenticated } from 'containers/App/selectors';
+import { makeSelectUser, makeSelectLoading, makeSelectIsAuthenticated, makeSelectLocation } from 'containers/App/selectors';
 
+import { Menu } from 'containers/Menu';
 import saga from './saga';
 import reducer from './reducer';
+
+const menuItems = [
+  {
+    id: 0,
+    name: 'dashboard',
+    icon: 'dashboard',
+    link: '/',
+  },
+  {
+    id: 1,
+    name: 'mail system',
+    icon: 'mail',
+    link: '/mail',
+  },
+  {
+    id: 2,
+    name: 'logout',
+    icon: 'power_settings_new',
+    link: '/logout',
+  },
+];
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -27,17 +49,20 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       isAuthenticated,
       loading,
       user,
+      location,
       } = this.props;
     const userProps = {
       isAuthenticated,
       loading,
       user,
+      location,
     };
     if (!userProps.isAuthenticated) {
       return <Redirect to="/login" />;
     }
     return (
-      <div>
+      <div className="content">
+        <Menu menuItems={menuItems} location={location} />
         <h1>
           Welcome {userProps.user.name}
         </h1>
@@ -50,12 +75,14 @@ HomePage.propTypes = {
   isAuthenticated: PropTypes.bool,
   loading: PropTypes.bool,
   user: PropTypes.object,
+  location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   isAuthenticated: makeSelectIsAuthenticated(),
   loading: makeSelectLoading(),
   user: makeSelectUser(),
+  location: makeSelectLocation(),
 });
 
 // function mapDispatchToProps(dispatch) {

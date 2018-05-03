@@ -17,6 +17,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Logout from 'components/Logout';
 import './App.scss';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route exact path="/login" component={LoginPage} />
+      <Route exact path="/logout" component={Logout} />
       <Route component={NotFoundPage} />
     </Switch>
   );

@@ -45,9 +45,9 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "lint-staged": {
-    //"*.js": "lint:eslint"
+    "*.js": "lint:eslint"
   },
-  //"pre-commit": "lint:staged",
+  "pre-commit": "lint:staged",
   "babel": {
     "plugins": [
       "styled-components"
@@ -250,9 +250,12 @@
     "@material/animation": "^0.34.0",
     "@material/base": "^0.35.0",
     "@material/button": "^0.35.0",
+    "@material/drawer": "^0.35.0",
     "@material/elevation": "^0.35.0",
+    "@material/grid-list": "^0.35.0",
     "@material/layout-grid": "^0.34.0",
     "@material/linear-progress": "^0.35.0",
+    "@material/list": "^0.35.0",
     "@material/ripple": "^0.35.0",
     "@material/typography": "^0.35.0",
     "add-asset-html-webpack-plugin": "2.0.1",
