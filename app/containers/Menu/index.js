@@ -11,6 +11,7 @@ import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import { logout } from 'containers/App/actions';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Logo from 'images/logo/shark-240.png';
@@ -21,6 +22,11 @@ import './MenuScript';
 
 
 export class Menu extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  handleLogout(dispatch) {
+    dispatch(logout());
+  }
+
   render() {
     const { dispatch, location } = this.props; // eslint-disable-line no-unused-vars
     return (
@@ -43,7 +49,7 @@ export class Menu extends React.PureComponent { // eslint-disable-line react/pre
           </nav>
           <hr className="mdc-list-divider" />
           <nav className="mdc-list">
-            <a className={'mdc-list-item caps'} >
+            <a className={'mdc-list-item caps'} onClick={this.handleLogout(this.props.dispatch)} role="link">
               <i className="material-icons mdc-list-item__graphic" aria-hidden="true">power_settings_new</i>logout
             </a>
           </nav>

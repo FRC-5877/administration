@@ -7,15 +7,13 @@ import { Redirect } from 'react-router-dom';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectIsAuthenticated, makeSelectHistory } from 'containers/App/selectors';
+import { makeSelectIsAuthenticated, makeSelectHistory, makeSelectLocation } from 'containers/App/selectors';
 
 import { Menu } from 'containers/Menu';
 import saga from './saga';
 import reducer from './reducer';
-import { makeSelectLocation } from '../App/selectors';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
   render() {
     const {
       isAuthenticated,

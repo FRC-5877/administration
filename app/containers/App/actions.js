@@ -3,8 +3,7 @@
  * App actions
  *
  */
-import { LOCATION_CHANGE } from 'react-router-redux';
-import { LOGIN_SUCCESS, LOGIN_REQUEST, LOGOUT, REDIRECT } from './constants';
+import { LOGIN_SUCCESS, LOGIN_REQUEST, LOGOUT, LOGIN_ERROR } from './constants';
 
 /**
  * Dispatched when the user successfully logs in
@@ -20,6 +19,13 @@ export function loginSuccess(userProfile) {
   };
 }
 
+export function loginError(error) {
+  return {
+    type: LOGIN_ERROR,
+    error,
+  };
+}
+
 export function loginRequest() {
   return {
     type: LOGIN_REQUEST,
@@ -29,20 +35,5 @@ export function loginRequest() {
 export function logout() {
   return {
     type: LOGOUT,
-  };
-}
-
-export function changeLocation(location) {
-  return {
-    type: LOCATION_CHANGE,
-    payload: location,
-  };
-}
-
-export function redirect(redi, direction) {
-  return {
-    type: REDIRECT,
-    redirect: redi,
-    direction: direction || null,
   };
 }

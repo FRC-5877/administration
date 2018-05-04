@@ -17,7 +17,7 @@ import $ from 'jquery';
 import { MDCLinearProgress } from '@material/linear-progress';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { loginRequest, loginSuccess } from '../App/actions';
+import { loginRequest, loginSuccess, loginError } from '../App/actions';
 import { } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -79,7 +79,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
                     <h4 className={'mdc-typography--headline4'}>Mechalodons Administration</h4>
                   </div>
                   <div className={'mdc-layout-grid__cell mdc-layout-grid__cell--span-12'}>
-                    <GoogleLogin clientId={'836592318780-ds8foim0jqo71iippfi4ir44lc61bpb3.apps.googleusercontent.com'} onRequest={this.props.onLoginRequest} onSuccess={this.props.onLoginSuccess} className={'mdc-button mdc-button--raised google-button'} />
+                    <GoogleLogin clientId={'836592318780-ds8foim0jqo71iippfi4ir44lc61bpb3.apps.googleusercontent.com'} onRequest={this.props.onLoginRequest} onSuccess={this.props.onLoginSuccess} onFailure={this.props.onLoginError} className={'mdc-button mdc-button--raised google-button'} />
                   </div>
                 </div>
               </div>
@@ -96,6 +96,7 @@ LoginPage.propTypes = {
   isAuthenticated: PropTypes.bool,
   onLoginRequest: PropTypes.func,
   onLoginSuccess: PropTypes.func,
+  onLoginError: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -107,8 +108,8 @@ function mapDispatchToProps(dispatch) {
   return {
     onLoginRequest: () => dispatch(loginRequest()),
     onLoginSuccess: (response) => dispatch(loginSuccess(response.profileObj)),
+    onLoginError: (error) => dispatch(loginError(error)),
   };
-  // return dispatch;
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

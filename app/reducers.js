@@ -8,6 +8,10 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
+import dashboardReducer from 'containers/Dashboard/reducer';
+import homePageReducer from 'containers/HomePage/reducer';
+import loginPageReducer from 'containers/LoginPage/reducer';
+import mailPageReducer from 'containers/MailPage/reducer';
 
 /*
  * routeReducer
@@ -45,6 +49,10 @@ export default function createReducer(injectedReducers) {
     route: routeReducer,
     global: globalReducer,
     language: languageProviderReducer,
+    dashboard: dashboardReducer,
+    homePage: homePageReducer,
+    loginPage: loginPageReducer,
+    mailPage: mailPageReducer,
     ...injectedReducers,
   });
 }

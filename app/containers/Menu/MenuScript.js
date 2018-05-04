@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import { push } from 'react-router-redux';
 
 $(document).ready(() => {
   switch (location.pathname) {
@@ -10,7 +9,6 @@ $(document).ready(() => {
       $('.nav-mail').addClass('mdc-list-item--selected');
       break;
     default:
-      console.log('nothing');
       $('.nav-dashboard').addClass('mdc-list-item--selected');
       break;
   }

@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import { LOGIN_SUCCESS, LOGIN_REQUEST, LOGOUT, REDIRECT } from './constants';
+import { LOGIN_SUCCESS, LOGIN_REQUEST, LOGOUT, LOGIN_ERROR } from './constants';
 
 const initialState = fromJS({
   redirect: false,
@@ -12,12 +12,12 @@ const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case REDIRECT:
-      return state.set('redirect', action.redirect).set('direction', action.direction);
     case LOGIN_REQUEST:
       return state.set('loading', true);
     case LOGIN_SUCCESS:
       return state.set('user', action.userProfile).set('loading', false).set('isAuthenticated', true);
+    case LOGIN_ERROR:
+      return state.set('loading', false);
     case LOGOUT:
       return state.set('user', {}).set('isAuthenticated', false);
     default:
