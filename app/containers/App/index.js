@@ -15,6 +15,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
+import Dashboard from 'containers/Dashboard/Loadable';
 import MailPage from 'containers/MailPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -23,12 +24,16 @@ import './App.scss';
 
 export default function App() {
   return (
-    <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route exact path="/mail" component={MailPage} />
-      <Route exact path="/login" component={LoginPage} />
-      <Route exact path="/logout" component={Logout} />
-      <Route component={NotFoundPage} />
-    </Switch>
+    <div className="content">
+      <HomePage />
+      <Switch>
+        <Route exact path="/" component={Dashboard} />
+        <Route path="/mail" component={MailPage} />
+
+        <Route path="/login" component={LoginPage} />
+        <Route path="/logout" component={Logout} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </div>
   );
 }

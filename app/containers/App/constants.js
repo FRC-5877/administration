@@ -13,3 +13,4 @@ export const DEFAULT_LOCALE = 'en';
 export const LOGIN_SUCCESS = 'administration/App/LOGIN_SUCCESS';
 export const LOGIN_REQUEST = 'administration/App/LOGIN_REQUEST';
 export const LOGOUT = 'administration/App/LOGOUT';
+export const REDIRECT = 'administration/App/REDIRECT';
