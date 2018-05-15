@@ -52,7 +52,27 @@ $(document).ready(() => {
     const email = $(e.target).attr('data-email');
     $('#edit-contact-dialog .name').val(name);
     $('#edit-contact-dialog .email').val(email);
-    console.log(editContactDialog);
+    $(e.target).data('data-old', email);
     editContactDialog.show();
+  });
+
+  $('#edit-contact-dialog').on('MDCDialog:accept', () => {
+    const n = $('#edit-contact-dialog input#name').val();
+    const p = $('#edit-contact-dialog input#parent').is(':checked');
+    const e = $('#edit-contact-dialog input#email').val();
+    const c = {
+      name: n,
+      parent: p,
+      email: e,
+      group: '',
+    };
+    $.post('/api/contacts/edit', { contact: c, uid: $('.user').attr('data-uid') }, (response) => {
+      if (!response.error) {
+        const oldEmail = $('').attr('data-old');
+        console.log($(`[data-old=${oldEmail}]`), oldEmail);
+        $(`[data-email=${oldEmail}]`).find('.name').html(c.name);
+      }
+    });
+
   });
 });

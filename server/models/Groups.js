@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const settings = require('../../settings.json');
 
 const Group = new Schema({
   name: String,
 });
 
-mongoose.connect('mongodb://192.1.1.33/team5877');
+mongoose.connect(`mongodb://${settings.mongodb}/team5877`);
 
 const Groups = mongoose.model('Groups', Group);
 

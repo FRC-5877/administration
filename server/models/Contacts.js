@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const settings = require('../../settings.json');
 
 const Contact = new Schema({
   name: String,
@@ -11,7 +12,7 @@ const Contact = new Schema({
   group: String,
 });
 
-mongoose.connect('mongodb://192.1.1.33/team5877');
+mongoose.connect(`mongodb://${settings.mongodb}/team5877`);
 
 const Contacts = mongoose.model('Contacts', Contact);
 

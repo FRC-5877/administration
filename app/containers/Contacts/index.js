@@ -31,6 +31,7 @@ export class Contacts extends React.PureComponent { // eslint-disable-line react
 
     return (
       <div className="contacts container">
+        <div className="user hidden" data-uid={uid} />
         <div className="mdc-layout-grid">
           <div className="mdc-layout-grid__inner">
             <div className="mdc-layout-grid__cell">

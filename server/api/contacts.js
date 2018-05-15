@@ -39,4 +39,22 @@ router.post('/add', (req, res) => {
   });
 });
 
+router.post('/edit', (req, res) => {
+  const userId = req.body.uid;
+  const c = req.body.contact;
+  Users.findOne({ googleId: userId }, (findUserError, user) => {
+    if (user.permissions < 10) {
+      Contacts.updateOne({ email: c.email }, c, (updateContactError, newContact) => {
+        if (!newContact) {
+          return res.status(409).json({ error: 'That contact does not exist' });
+        } else {
+          return res.status(201).json(newContact);
+        }
+      });
+    } else {
+      return res.status(403).json({ error: 'You do not have permission to add contacts!' });
+    }
+  });
+});
+
 module.exports = router;

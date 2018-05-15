@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const settings = require('../../settings.json');
 
 const User = new Schema({
   googleId: String,
@@ -8,7 +9,7 @@ const User = new Schema({
   lastAction: String,
 });
 
-mongoose.connect('mongodb://192.1.1.33/team5877');
+mongoose.connect(`mongodb://${settings.mongodb}/team5877`);
 
 const Users = mongoose.model('Users', User);
 

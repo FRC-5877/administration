@@ -114,7 +114,7 @@ function ContactList(props) {
             </div>
           </section>
           <footer className="mdc-dialog__footer">
-            <button type="button" className="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Add</button>
+            <button type="button" className="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Edit</button>
           </footer>
         </div>
         <div className="mdc-dialog__backdrop"></div>
