@@ -8,6 +8,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { getAllContacts, getAllGroups } from 'containers/Contacts/actions';
 import Menu from 'components/Menu';
 
 import { makeSelectHomePage, makeSelectUser } from './selectors';

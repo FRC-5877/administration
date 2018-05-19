@@ -16,6 +16,7 @@ export function* getAllGroups() {
 }
 
 export function* getAllContacts() {
+  console.log('GETTING ALL CONTACTS');
   const userId = yield select(makeSelectUserId());
   const contactsUrl = `/api/contacts/get?uid=${userId}`;
   try {

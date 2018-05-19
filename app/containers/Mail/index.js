@@ -20,6 +20,8 @@ import MailEditor from 'components/MailEditor';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { makeSelectContactList, makeSelectGroupList } from 'containers/Contacts/selectors';
+
 import makeSelectMail from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -30,7 +32,7 @@ import { sendMail } from './actions';
 export class Mail extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
-    const { sendMailProp } = this.props;
+    const { sendMailProp, contacts, groups } = this.props;
     const userId = $('meta[name=uid]').attr('content');
     const converter = new showdown.Converter();
     let markDown = null;
@@ -39,7 +41,7 @@ export class Mail extends React.PureComponent { // eslint-disable-line react/pre
     const cc = $('.mail-editor .cc');
     const bcc = $('.mail-editor .bcc');
     const menu = new MDCMenu(document.querySelector('.mail-editor .mdc-menu'));
-
+    console.log(contacts);
     allFields.each((index, field) => {
       MDCTextField.attachTo(field);
     });
@@ -81,6 +83,9 @@ export class Mail extends React.PureComponent { // eslint-disable-line react/pre
   }
 
   render() {
+    const { contacts, groups } = this.props;
+    console.log(`CONTACTS: ${JSON.stringify(contacts)}`);
+    console.log(`GROUPS: ${JSON.stringify(groups)}`);
     return (
       <div className="mail container">
         <div className="mdc-layout-grid">
@@ -88,7 +93,7 @@ export class Mail extends React.PureComponent { // eslint-disable-line react/pre
             <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 title">
               <h4>Send Email</h4>
             </div>
-            <MailEditor />
+            <MailEditor contactsGroups={contacts.concat(groups)} />
           </div>
         </div>
       </div>
@@ -99,10 +104,14 @@ export class Mail extends React.PureComponent { // eslint-disable-line react/pre
 Mail.propTypes = {
   dispatch: PropTypes.func.isRequired,
   sendMailProp: PropTypes.func,
+  contacts: PropTypes.array,
+  groups: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   mail: makeSelectMail(),
+  contacts: makeSelectContactList(),
+  groups: makeSelectGroupList(),
 });
 
 function mapDispatchToProps(dispatch) {

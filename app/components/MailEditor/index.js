@@ -6,11 +6,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 
-// import './MailScript';
 import './MailEditor.scss';
 
-function MailEditor() {
+function MailEditor(props) {
+  const { contactsGroups } = props;
+  // console.log(contactsGroups);
+
   return (
     <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mail-editor">
       <div className="mdc-layout-grid__inner">
@@ -93,6 +96,7 @@ function MailEditor() {
 
 MailEditor.propTypes = {
   span: PropTypes.string,
+  contactsGroups: PropTypes.array,
 };
 
 export default MailEditor;
