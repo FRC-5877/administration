@@ -3,6 +3,7 @@ import { MDCDialog } from '@material/dialog';
 import { MDCTextField } from '@material/textfield';
 
 $(document).ready(() => {
+  const googleId = $('meta[name=uid]').attr('content');
   const allFields = $('#add-group-dialog .mdc-text-field');
   const dialog = MDCDialog.attachTo(document.querySelector('#add-group-dialog'));
 
@@ -11,24 +12,27 @@ $(document).ready(() => {
   });
 
   $('.add-group').click(() => {
-    console.log('Add a group, dialog');
     dialog.show();
   });
 
   $('#add-group-dialog').on('MDCDialog:accept', () => {
     const n = $('#add-group-dialog input#name').val();
+    const c = $('#add-group-dialog input#color').val();
     const g = {
       name: n,
+      color: c,
     };
 
-    $.post('/api/groups/add', { group: g, uid: $('#add-group-dialog').data('uid') }, (response) => {
+    $.post('/api/groups/add', { group: g, uid: googleId }, (response) => {
       $('.mdc-list.group-list').append(
-        `<li class="mdc-list-item"> \
+        `<li class="mdc-list-item" style="background-color: ${g.color}"> \
           <span class="mdc-list-item__text"> \
             ${response.name} \
           </span> \
         </li>`
       );
+      $('#add-group-dialog input#name').val('');
+      $('#add-group-dialog input#color').val('');
     });
   });
 });

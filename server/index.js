@@ -13,6 +13,7 @@ const app = express();
 const user = require('./api/user');
 const contacts = require('./api/contacts');
 const groups = require('./api/groups');
+const mail = require('./api/mail');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/user', user);
 app.use('/api/contacts', contacts);
 app.use('/api/groups', groups);
+app.use('/api/mail', mail);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

@@ -5,7 +5,7 @@
  */
 
 import {
-  DEFAULT_ACTION, GET_ALL_CONTACTS, GOT_ALL_CONTACTS, GET_ALL_GROUPS, GOT_ALL_GROUPS, ADD_CONTACT, ADDED_CONTACT, ADD_GROUP, ADDED_GROUP,
+  DEFAULT_ACTION, GET_ALL_CONTACTS, GOT_ALL_CONTACTS, GET_ALL_GROUPS, GOT_ALL_GROUPS, ADD_CONTACT, ADDED_CONTACT, ADD_GROUP, ADDED_GROUP, EDIT_CONTACT, EDITED_CONTACT,
 } from './constants';
 
 export function getAllContacts() {
@@ -34,9 +34,10 @@ export function gotAllGroups(groups) {
   };
 }
 
-export function addContact() {
+export function addContact(contact) {
   return {
     type: ADD_CONTACT,
+    contact,
   };
 }
 
@@ -47,9 +48,10 @@ export function addedContact(contact) {
   };
 }
 
-export function addGroup() {
+export function addGroup(group) {
   return {
     type: ADD_GROUP,
+    group,
   };
 }
 
@@ -57,6 +59,20 @@ export function addedGroup(group) {
   return {
     type: ADDED_GROUP,
     group,
+  };
+}
+
+export function editContact(contact) {
+  return {
+    type: EDIT_CONTACT,
+    contact,
+  };
+}
+
+export function editedContact(contact) {
+  return {
+    type: EDITED_CONTACT,
+    contact,
   };
 }
 

@@ -5,9 +5,10 @@
 */
 
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
-import Logo from 'images/logo/shark-240.png';
+import Logo from '!file-loader?name=[name].[ext]!images/logo/shark-240.png';
 
 import { logout } from 'containers/HomePage/actions';
 
@@ -16,6 +17,9 @@ function Menu(props) {
   const { user, dispatch } = props;
   return (
     <nav className="mdc-drawer mdc-drawer--permanent">
+      <Helmet>
+        <meta name="uid" content={user.googleId} />
+      </Helmet>
       <div className="mdc-layout-grid">
         <div className="mcd-layout-grid__inner">
           <div className="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 center-text">

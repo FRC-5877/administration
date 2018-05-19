@@ -8,14 +8,15 @@ router.get('/', (req, res) => {
 });
 
 router.get('/get', (req, res) => {
-  const userId = req.query.uid;
+  const userId = req.query.uid || '';
   Users.findOne({ googleId: userId }, (findOneError, user) => {
-    if (user.permissions < 10) {
+    if (user && user.permissions < 10) {
       Groups.find({}, (findGroupsError, groups) => {
         return res.status(200).json(groups);
       });
+    } else {
+      return res.status(403).json({ error: 'You do not have permission to get groups!' });
     }
-    return res.status(200);
   });
 });
 

@@ -1,3 +1,12 @@
 #add-contact-dialog input.mdc-text-field__input, #edit-contact-dialog input.mdc-text-field__input {
   height: 100%;
 }
+
+#add-contact-dialog .mdc-select, #edit-contact-dialog .mdc-select {
+  min-width: 200px;
+}
+
+#add-contact-dialog #group-select, #edit-contact-dialog #group-select {
+  -webkit-appearance: none;
+  appearance: none;
+}

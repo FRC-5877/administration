@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './MailScript';
+// import './MailScript';
 import './MailEditor.scss';
 
 function MailEditor() {

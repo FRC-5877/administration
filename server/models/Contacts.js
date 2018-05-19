@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
+const argv = require('../argv');
 const Schema = mongoose.Schema;
-const settings = require('../../settings.json');
 
 const Contact = new Schema({
   name: String,
@@ -8,11 +8,10 @@ const Contact = new Schema({
     type: String,
     unique: true,
   },
-  parent: Boolean,
-  group: String,
+  groups: Array,
 });
 
-mongoose.connect(`mongodb://${settings.mongodb}/team5877`);
+mongoose.connect(`mongodb://${argv.mongo || process.env.MONGO || 'localhost'}/team5877`);
 
 const Contacts = mongoose.model('Contacts', Contact);
 

@@ -1,3 +1,6 @@
+/* eslint consistent-return: 0 */
+/* eslint arrow-body-style: 0 */
+/* eslint no-else-return: 0 */
 const express = require('express');
 const router = express.Router();
 const Contacts = require('../models/Contacts');

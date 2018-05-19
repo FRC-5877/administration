@@ -3,17 +3,17 @@
 * GroupList
 *
 */
+/* eslint no-underscore-dangle: 0 */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import Group from 'components/Group';
 
-import './GroupListScript';
+// import './GroupListScript';
 import './GroupList.scss';
 
-
 function GroupList(props) {
-  const { groups, uid } = props;
+  const { groups } = props;
   const groupItems = groups.map((group) => <Group key={group._id} group={group} />);
 
   return (
@@ -26,17 +26,27 @@ function GroupList(props) {
         </li>
         {groupItems}
       </ul>
-      <aside id="add-group-dialog" data-uid={uid} className="mdc-dialog" role="alertdialog" aria-labelledby="my-mdc-dialog-label" aria-describedby="my-mdc-dialog-description">
+      <aside id="add-group-dialog" className="mdc-dialog" role="alertdialog" aria-labelledby="add-group-dialog-label" aria-describedby="add-group-dialog-description">
         <div className="mdc-dialog__surface">
           <header className="mdc-dialog__header">
-            <h2 id="my-mdc-dialog-label" className="mdc-dialog__header__title">
+            <h2 id="add-group-dialog-label" className="mdc-dialog__header__title">
               Add a new group
             </h2>
           </header>
-          <section id="my-mdc-dialog-description" className="mdc-dialog__body">
+          <section id="add-group-dialog-description" className="mdc-dialog__body">
             <div className="mdc-text-field mdc-text-field--outlined">
               <input type="text" id="name" className="mdc-text-field__input name" />
               <label htmlFor="name" className="mdc-floating-label">Name of group</label>
+              <div className="mdc-notched-outline">
+                <svg>
+                  <path className="mdc-notched-outline__path" />
+                </svg>
+              </div>
+              <div className="mdc-notched-outline__idle"></div>
+            </div>
+            <div className="mdc-text-field mdc-text-field--outlined">
+              <input type="text" id="color" className="mdc-text-field__input name" />
+              <label htmlFor="color" className="mdc-floating-label">Color of group</label>
               <div className="mdc-notched-outline">
                 <svg>
                   <path className="mdc-notched-outline__path" />
@@ -60,7 +70,6 @@ GroupList.propTypes = {
     PropTypes.object,
     PropTypes.array,
   ]).isRequired,
-  uid: PropTypes.string.isRequired,
 };
 
 export default GroupList;

@@ -10,6 +10,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import $ from 'jquery';
+import { MDCMenu } from '@material/menu';
+import { MDCTextField } from '@material/textfield';
+import showdown from 'showdown';
+
 import MailEditor from 'components/MailEditor';
 
 import injectSaga from 'utils/injectSaga';
@@ -20,8 +25,61 @@ import reducer from './reducer';
 import saga from './saga';
 
 import './Mail.scss';
+import { sendMail } from './actions';
 
 export class Mail extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  componentDidMount() {
+    const { sendMailProp } = this.props;
+    const userId = $('meta[name=uid]').attr('content');
+    const converter = new showdown.Converter();
+    let markDown = null;
+    let timeout = null;
+    const allFields = $('.mail-editor .mdc-text-field');
+    const cc = $('.mail-editor .cc');
+    const bcc = $('.mail-editor .bcc');
+    const menu = new MDCMenu(document.querySelector('.mail-editor .mdc-menu'));
+
+    allFields.each((index, field) => {
+      MDCTextField.attachTo(field);
+    });
+
+    $('.mail-editor textarea').keydown(() => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        markDown = converter.makeHtml($('.mail-editor textarea').val());
+        $('.result').html(markDown);
+      }, 500);
+    });
+
+    $('.mail-editor .add').click(() => {
+      menu.open = !menu.open;
+    });
+
+    $('.mail-editor .mdc-menu').on('MDCMenu:selected', (e) => {
+      if (e.detail.index === 0) {
+        if (cc.hasClass('hidden')) {
+          cc.removeClass('hidden');
+        } else {
+          cc.addClass('hidden');
+        }
+      } else if (e.detail.index === 1) {
+        if (bcc.hasClass('hidden')) {
+          bcc.removeClass('hidden');
+        } else {
+          bcc.addClass('hidden');
+        }
+      }
+    });
+
+    $('.mail-editor button.send').click(() => {
+      const s = $('.mail-editor input[name=subject]').val();
+      const b = $('.mail-editor .result').html();
+
+      sendMailProp({ subject: s, body: b, uid: userId });
+    });
+  }
+
   render() {
     return (
       <div className="mail container">
@@ -40,6 +98,7 @@ export class Mail extends React.PureComponent { // eslint-disable-line react/pre
 
 Mail.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  sendMailProp: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -48,6 +107,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    sendMailProp: (email) => dispatch(sendMail(email)),
     dispatch,
   };
 }

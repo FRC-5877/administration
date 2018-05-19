@@ -14,6 +14,8 @@
 @import '@material/fab/mdc-fab';
 @import '@material/dialog/mdc-dialog';
 @import '@material/checkbox/mdc-checkbox';
+@import '@material/select/mdc-select';
+@import '@material/chips/mdc-chips';
 
 body {
   display: flex;
@@ -83,4 +85,9 @@ h4 {
 
 .hidden {
   display: none;
+}
+
+.button-delete {
+  color: white!important;
+  background-color: red!important;
 }

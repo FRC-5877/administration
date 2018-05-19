@@ -3,17 +3,18 @@
 * ConctactList
 *
 */
-
+/* eslint no-underscore-dangle: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Contact from 'components/Contact';
 
-import './ContactListScript';
+// import './ContactListScript';
 import './ContactList.scss';
+import GroupSelectList from '../GroupSelectList';
 
 function ContactList(props) {
-  const { contacts, uid } = props;
-  const contactItems = contacts.map((contact) => <Contact key={contact._id} contact={contact} />);
+  const { contacts, groups } = props;
+  const contactItems = contacts.map((contact) => <Contact key={contact._id} contact={contact} groups={groups} />);
 
   return (
     <div>
@@ -25,7 +26,7 @@ function ContactList(props) {
         </li>
         {contactItems}
       </ul>
-      <aside id="add-contact-dialog" data-uid={uid} className="mdc-dialog" role="alertdialog" aria-labelledby="add-contact-dialog-label" aria-describedby="add-contact-dialog-description">
+      <aside id="add-contact-dialog" className="mdc-dialog" role="alertdialog" aria-labelledby="add-contact-dialog-label" aria-describedby="add-contact-dialog-description">
         <div className="mdc-dialog__surface">
           <header className="mdc-dialog__header">
             <h2 id="my-mdc-dialog-label" className="mdc-dialog__header__title">
@@ -53,18 +54,7 @@ function ContactList(props) {
               </div>
               <div className="mdc-notched-outline__idle"></div>
             </div>
-            <div className="mdc-form-field">
-              <div className="mdc-checkbox">
-                <input type="checkbox" className="mdc-checkbox__native-control" id="parent" />
-                <div className="mdc-checkbox__background">
-                  <svg className="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                    <path className="mdc-checkbox__checkmark-path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
-                  </svg>
-                  <div className="mdc-checkbox__mixedmark"></div>
-                </div>
-              </div>
-              <label htmlFor="parent">Parent?</label>
-            </div>
+            <GroupSelectList groups={groups} />
           </section>
           <footer className="mdc-dialog__footer">
             <button type="button" className="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Add</button>
@@ -72,7 +62,8 @@ function ContactList(props) {
         </div>
         <div className="mdc-dialog__backdrop"></div>
       </aside>
-      <aside id="edit-contact-dialog" data-uid={uid} className="mdc-dialog" role="alertdialog" aria-labelledby="edit-contact-label" aria-describedby="edit-contact-description">
+      {/* Edit Contact */}
+      <aside id="edit-contact-dialog" className="mdc-dialog" role="alertdialog" aria-labelledby="edit-contact-label" aria-describedby="edit-contact-description">
         <div className="mdc-dialog__surface">
           <header className="mdc-dialog__header">
             <h2 id="edit-contact-label" className="mdc-dialog__header__title">
@@ -80,6 +71,7 @@ function ContactList(props) {
             </h2>
           </header>
           <section id="edit-contact-description" className="mdc-dialog__body">
+            <div className="hidden id" />
             <div className="mdc-text-field mdc-text-field--outlined">
               <input type="text" id="name" className="mdc-text-field__input name" />
               <label htmlFor="name" className="mdc-floating-label mdc-floating-label--float-above">Name of Contact</label>
@@ -100,25 +92,16 @@ function ContactList(props) {
               </div>
               <div className="mdc-notched-outline__idle"></div>
             </div>
-            <div className="mdc-form-field">
-              <div className="mdc-checkbox">
-                <input type="checkbox" className="mdc-checkbox__native-control" id="parent" />
-                <div className="mdc-checkbox__background">
-                  <svg className="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                    <path className="mdc-checkbox__checkmark-path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
-                  </svg>
-                  <div className="mdc-checkbox__mixedmark"></div>
-                </div>
-              </div>
-              <label htmlFor="parent">Parent?</label>
-            </div>
+            <GroupSelectList groups={groups} />
           </section>
           <footer className="mdc-dialog__footer">
+            <button type="button" className="mdc-button mdc-dialog__footer__button button-delete"><i className="material-icons mdc-button__icon">delete</i>Delete</button>
             <button type="button" className="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Edit</button>
           </footer>
         </div>
         <div className="mdc-dialog__backdrop"></div>
       </aside>
+      {/* END Edit Contact */}
     </div>
   );
 }
@@ -128,7 +111,10 @@ ContactList.propTypes = {
     PropTypes.object,
     PropTypes.array,
   ]).isRequired,
-  uid: PropTypes.string.isRequired,
+  groups: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]).isRequired,
 };
 
 export default ContactList;

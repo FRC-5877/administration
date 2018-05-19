@@ -1,7 +1,7 @@
 import { call, put, select } from 'redux-saga/effects';
 import { makeSelectUser } from 'containers/HomePage/selectors';
 import { loginValidate } from 'containers/HomePage/actions';
-import request from 'utils/request';
+import { requestGet } from 'utils/request';
 import { LOGIN_SUCCESS } from './constants';
 
 export function* validateUser() {
@@ -9,10 +9,10 @@ export function* validateUser() {
   const validateUrl = `/api/user/validate?gid=${user.googleId}`;
 
   try {
-    const validation = yield call(request, validateUrl);
+    const validation = yield call(requestGet, validateUrl);
     yield put(loginValidate(validation));
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 

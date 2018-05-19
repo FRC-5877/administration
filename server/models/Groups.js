@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
+const argv = require('../argv');
 const Schema = mongoose.Schema;
-const settings = require('../../settings.json');
 
 const Group = new Schema({
   name: String,
+  color: String,
 });
 
-mongoose.connect(`mongodb://${settings.mongodb}/team5877`);
+mongoose.connect(`mongodb://${argv.mongo || process.env.MONGO || 'localhost'}/team5877`);
 
 const Groups = mongoose.model('Groups', Group);
 

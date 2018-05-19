@@ -17,7 +17,31 @@ function checkStatus(response) {
   throw error;
 }
 
-export default function request(url, options) {
+export function requestEdit(url, object) {
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(object),
+  })
+  .then(checkStatus)
+  .then(parseJSON);
+}
+
+export function requestPost(url, object) {
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(object),
+  })
+  .then(checkStatus)
+  .then(parseJSON);
+}
+
+export function requestGet(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON);

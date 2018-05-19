@@ -13,3 +13,5 @@ export const ADD_CONTACT = 'app/Contacts/ADD_CONTACT';
 export const ADDED_CONTACT = 'app/Contacts/ADDED_CONTACT';
 export const ADD_GROUP = 'app/Contacts/ADD_GROUP';
 export const ADDED_GROUP = 'app/Contacts/ADD_GROUP';
+export const EDIT_CONTACT = 'app/Contacts/EDIT_CONTACT';
+export const EDITED_CONTACT = 'app/Contacts/EDITED_CONTACT';

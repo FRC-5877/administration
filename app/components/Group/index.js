@@ -10,8 +10,11 @@ import PropTypes from 'prop-types';
 
 function Group(props) {
   const { group } = props;
+  const groupStyle = {
+    backgroundColor: group.color || '#fff',
+  };
   return (
-    <li className="mdc-list-item" key={group._id}>
+    <li className="mdc-list-item" style={groupStyle} >
       <span className="mdc-list-item__text">
         {group.name}
       </span>
